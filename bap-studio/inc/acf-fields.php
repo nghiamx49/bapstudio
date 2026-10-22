@@ -1,6 +1,9 @@
 <?php
 /**
- * ACF Pro fields, registered in code so they live in Git.
+ * Custom fields, registered in code so they live in Git.
+ *
+ * Needs the free Secure Custom Fields plugin (WordPress.org), which provides the
+ * ACF API including options pages, repeater and gallery fields. ACF PRO also works.
  *
  * - "Studio settings" options page: banner, home carousel, pinned albums, contact and footer.
  * - Album fields: order, cover image, intro.
@@ -11,14 +14,17 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/** Warn admins when ACF Pro is missing, since most content depends on it. */
+/** Warn admins when Secure Custom Fields (or ACF PRO) is missing, since most content depends on it. */
 add_action(
 	'admin_notices',
 	static function () {
 		if ( function_exists( 'acf_add_options_page' ) || ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
-		echo '<div class="notice notice-warning"><p>' . esc_html__( 'B.A.P Studio theme needs the Advanced Custom Fields PRO plugin for Studio settings, albums and pricing packages.', 'bap-studio' ) . '</p></div>';
+		$install = current_user_can( 'install_plugins' )
+			? ' <a href="' . esc_url( admin_url( 'plugin-install.php?s=secure-custom-fields&tab=search&type=term' ) ) . '">' . esc_html__( 'Install Secure Custom Fields', 'bap-studio' ) . '</a>'
+			: '';
+		echo '<div class="notice notice-warning"><p>' . esc_html__( 'B.A.P Studio theme needs the free Secure Custom Fields plugin for Studio settings, albums and pricing packages.', 'bap-studio' ) . $install . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput -- built from escaped parts.
 	}
 );
 

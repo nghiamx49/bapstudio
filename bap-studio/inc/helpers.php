@@ -8,8 +8,8 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Read a Studio settings value (ACF options page), with a fallback when
- * ACF Pro is not active or the field is empty.
+ * Read a Studio settings value (options page from Secure Custom Fields),
+ * with a fallback when the plugin is not active or the field is empty.
  */
 function bap_option( string $name, $fallback = '' ) {
 	if ( function_exists( 'get_field' ) ) {
@@ -21,7 +21,7 @@ function bap_option( string $name, $fallback = '' ) {
 	return $fallback;
 }
 
-/** Read an ACF field on a post, with a fallback. */
+/** Read a custom field (Secure Custom Fields) on a post, with a fallback. */
 function bap_field( string $name, $post_id = null, $fallback = '' ) {
 	if ( function_exists( 'get_field' ) ) {
 		$value = get_field( $name, $post_id );
@@ -38,7 +38,7 @@ function bap_studio_name(): string {
 }
 
 /**
- * Normalise an ACF image/gallery value (ID, array or URL) to an attachment ID.
+ * Normalise an image/gallery field value (ID, array or URL) to an attachment ID.
  *
  * @param mixed $value Raw value.
  */

@@ -7,14 +7,14 @@ The theme lives in [`bap-studio/`](bap-studio/). The built CSS/JS in `bap-studio
 ## Requirements
 
 - WordPress 6.6+ and PHP 8.1+
-- **Advanced Custom Fields PRO** (Studio settings page, gallery and repeater fields)
+- **Secure Custom Fields** (free, on WordPress.org) for the Studio settings page, the carousel gallery and the package bullet list. ACF PRO also works if you already have it.
 - **Contact Form 7** (booking form) and **Flamingo** (keeps a copy of each message in wp-admin)
 - Recommended: an SMTP plugin such as WP Mail SMTP so form emails are delivered, plus an SEO plugin (Yoast or Rank Math) and a caching plugin
 
 ## Install
 
 1. Zip the `bap-studio` folder (or run `npm run zip` inside it) and upload it in **Appearance → Themes → Add New → Upload**, then activate it.
-2. Install and activate ACF PRO, Contact Form 7 and Flamingo.
+2. In **Plugins → Add New**, install and activate **Secure Custom Fields**, **Contact Form 7** and **Flamingo**.
 3. Go to **Settings → Permalinks** and click Save once.
 
 ## Managing content
@@ -61,14 +61,14 @@ npm run build   # production build
 npm run zip     # build and create ../bap-studio.zip for upload
 ```
 
-A local site can be started with [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) (Docker) from the repo root: `npx @wordpress/env start`. ACF PRO is a paid plugin, so add it to the site yourself.
+A local site can be started with [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) (Docker) from the repo root: `npx @wordpress/env start`.
 
 ### Structure
 
 ```
 bap-studio/
   functions.php            loads inc/*
-  inc/                     taxonomies, post types, ACF fields, admin tools, REST "load more", contact form
+  inc/                     taxonomies, post types, custom fields (Secure Custom Fields), admin tools, REST "load more", contact form
   front-page.php           banner, carousel, pinned albums, pricing, contact
   taxonomy-bap_album.php   album page with tabs, grid and "load more"
   page-pricing.php         pricing page template
