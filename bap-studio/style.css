@@ -1,0 +1,12 @@
+/*
+Theme Name:  B.A.P Studio
+Theme URI:   https://github.com/nghiamx49/bapstudio
+Description: Dark and gold showcase theme for a wedding, event and prom photo studio. Photo albums, pricing packages and home page content are managed in wp-admin; motion by GSAP.
+Version:     1.0.0
+Requires at least: 6.6
+Requires PHP: 8.1
+Text Domain: bap-studio
+License:     GPL-2.0-or-later
+*/
+
+/* Styles are compiled from src/scss into dist/main.css. */

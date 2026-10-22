@@ -1,0 +1,38 @@
+.eyebrow {
+  margin: 0 0 16px;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 400;
+  &.small { font-size: 12px; letter-spacing: 0.16em; margin-bottom: 6px; }
+}
+
+.section { padding: 100px 0 40px; }
+.section-head { margin-bottom: 48px; }
+.section-title { font-size: clamp(36px, 5vw, 52px); }
+.section-more { margin-top: 40px; text-align: center; }
+.lead { font-size: 17px; line-height: 1.8; color: var(--text-muted); max-width: 760px; margin: 16px 0 0; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 28px;
+  font-size: 15px; letter-spacing: 0.06em; cursor: pointer;
+  border: 1px solid transparent; background: none;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.btn-primary { background: var(--gold); color: var(--on-gold); font-weight: 500; &:hover { background: var(--gold-light); color: var(--on-gold); } }
+.btn-ghost { border-color: #8a7a66; color: var(--text); &:hover { border-color: var(--gold); color: var(--gold); } }
+.btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn[disabled] { opacity: 0.5; cursor: wait; }
+
+.link-arrow {
+  display: inline-flex; gap: 8px; align-items: center;
+  font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase;
+  span { transition: transform 0.25s var(--ease); }
+  &:hover span { transform: translateX(4px); }
+}
+
+.gold-rule { display: block; width: 96px; height: 1px; background: var(--gold); margin: 28px 0; transform-origin: left; }
+
+.icon { flex: none; }

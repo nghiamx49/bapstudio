@@ -1,0 +1,8 @@
+.site-footer { border-top: 1px solid var(--line); padding-top: 56px; font-size: 14px; color: var(--text-dim); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; padding-bottom: 40px; }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 24px; } }
+.footer-tagline { margin: 8px 0 0; }
+.footer-contact { font-style: normal; p { margin: 0 0 8px; } a { color: var(--text-muted); &:hover { color: var(--gold); } } }
+.footer-social { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 20px; align-content: flex-start;
+  a { color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; font-size: 13px; &:hover { color: var(--gold); } } }
+.footer-bottom { border-top: 1px solid var(--line); padding-top: 24px; padding-bottom: 28px; font-size: 13px; }

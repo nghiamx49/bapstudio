@@ -1,0 +1,22 @@
+{
+  "name": "bap-studio",
+  "version": "1.0.0",
+  "description": "B.A.P Studio WordPress theme",
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "vite build",
+    "zip": "npm run build && cd .. && rm -f bap-studio.zip && zip -rq bap-studio.zip bap-studio -x \"bap-studio/node_modules/*\" \"bap-studio/src/*\" \"bap-studio/package*.json\" \"bap-studio/vite.config.js\""
+  },
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "sass": "^1.80.6",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.1.0",
+    "@fontsource/cormorant-garamond": "^5.1.0",
+    "gsap": "^3.13.0"
+  },
+  "private": true,
+  "type": "module"
+}
