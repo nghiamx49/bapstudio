@@ -1,0 +1,48 @@
+.contact-grid {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 48px 64px;
+  border-top: 1px solid var(--line); padding-top: 40px;
+  @media (max-width: 900px) { grid-template-columns: 1fr; }
+}
+.contact-details {
+  margin: 0; display: flex; flex-direction: column;
+  > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line-soft); }
+  > div:first-child { padding-top: 0; }
+  dt { font-family: var(--font-label); font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--taupe); padding-top: 4px; }
+  dd { margin: 0; font-family: var(--font-display); font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; }
+  a:hover { color: var(--mauve); }
+}
+
+// Contact Form 7, styled to match.
+.contact-form {
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; margin-bottom: 28px; }
+  .span-2 { grid-column: span 2; }
+  @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } .span-2 { grid-column: auto; } }
+  label {
+    display: flex; flex-direction: column; gap: 8px;
+    font-family: var(--font-label); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--taupe);
+  }
+  input:not([type="submit"]), select, textarea {
+    width: 100%; min-height: 48px; padding: 12px 0;
+    background: transparent; color: var(--ink); border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
+    font: inherit; font-family: var(--font-body); font-size: 16px; font-weight: 400; letter-spacing: 0; text-transform: none;
+    transition: border-color 0.2s;
+    &:focus { outline: none; border-bottom-color: var(--ink); box-shadow: 0 1px 0 var(--ink); }
+  }
+  textarea { min-height: 120px; resize: vertical; }
+  select {
+    appearance: none; padding-right: 28px;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position: calc(100% - 10px) 50%, calc(100% - 5px) 50%; background-size: 5px 5px; background-repeat: no-repeat;
+  }
+  .wpcf7-submit, input[type="submit"] {
+    min-height: 48px; padding: 0 26px; border: 0; border-radius: var(--radius); cursor: pointer;
+    background: var(--mauve); color: var(--paper); box-shadow: 0 12px 28px rgba(140, 77, 89, 0.32);
+    font-family: var(--font-label); font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+    transition: background 0.25s;
+    &:hover { background: var(--mauve-deep); }
+  }
+  .wpcf7-not-valid-tip { color: #a2303f; font-family: var(--font-body); font-size: 13px; letter-spacing: 0; text-transform: none; margin-top: 4px; }
+  .wpcf7-response-output { margin: 20px 0 0 !important; padding: 12px 16px !important; border-radius: var(--radius); border-color: var(--mauve) !important; color: var(--ink); }
+  .wpcf7-spinner { background-color: var(--mauve); }
+}
+.contact-fallback { font-size: 17px; }

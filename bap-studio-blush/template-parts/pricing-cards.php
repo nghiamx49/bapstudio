@@ -1,0 +1,56 @@
+<?php
+/**
+ * Pricing packages as hairline-divided columns. Used on the home page and the pricing page.
+ *
+ * @package bap-studio-blush
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+$bap_packages = bap_packages();
+if ( ! $bap_packages ) {
+	return;
+}
+?>
+<div class="pricing-grid hairline-cols" data-stagger>
+	<?php foreach ( $bap_packages as $bap_i => $bap_pkg ) : ?>
+		<?php
+		$bap_items     = (array) bap_field( 'items', $bap_pkg->ID, array() );
+		$bap_highlight = (bool) bap_field( 'highlight', $bap_pkg->ID, false );
+		$bap_summary   = bap_field( 'summary', $bap_pkg->ID );
+		$bap_note      = bap_field( 'price_note', $bap_pkg->ID );
+		$bap_btn       = bap_field( 'button_label', $bap_pkg->ID, __( 'Đặt lịch', 'bap-studio-blush' ) );
+		?>
+		<article class="price-card<?php echo $bap_highlight ? ' is-highlight' : ''; ?>" data-stagger-item>
+			<div class="price-top">
+				<span class="col-num"><?php echo esc_html( sprintf( '%02d', $bap_i + 1 ) ); ?></span>
+				<?php if ( $bap_highlight ) : ?>
+					<span class="price-badge"><?php esc_html_e( 'Phổ biến', 'bap-studio-blush' ); ?></span>
+				<?php endif; ?>
+			</div>
+			<h3 class="price-title"><?php echo esc_html( get_the_title( $bap_pkg ) ); ?></h3>
+			<?php if ( $bap_summary ) : ?>
+				<p class="price-summary"><?php echo esc_html( $bap_summary ); ?></p>
+			<?php endif; ?>
+			<p class="price-amount">
+				<span class="amount"><?php echo esc_html( bap_format_price( bap_field( 'price', $bap_pkg->ID ) ) ); ?></span>
+				<?php if ( $bap_note ) : ?>
+					<span class="note"><?php echo esc_html( $bap_note ); ?></span>
+				<?php endif; ?>
+			</p>
+			<?php if ( $bap_items ) : ?>
+				<ul class="price-items">
+					<?php foreach ( $bap_items as $bap_item ) : ?>
+						<?php
+						if ( empty( $bap_item['text'] ) ) {
+							continue;
+						}
+						?>
+						<li><?php echo bap_icon( 'check' ); // phpcs:ignore ?><span><?php echo esc_html( $bap_item['text'] ); ?></span></li>
+					<?php endforeach; ?>
+				</ul>
+			<?php endif; ?>
+			<a class="btn <?php echo $bap_highlight ? 'btn-primary' : 'btn-outline'; ?>" href="<?php echo esc_url( bap_blush_contact_url() ); ?>" data-package="<?php echo esc_attr( get_the_title( $bap_pkg ) ); ?>"><?php echo esc_html( $bap_btn ); ?> <?php echo bap_blush_arrow(); // phpcs:ignore ?></a>
+		</article>
+	<?php endforeach; ?>
+</div>

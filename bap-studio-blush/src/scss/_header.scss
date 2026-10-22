@@ -1,0 +1,75 @@
+// Header: 92px, blush at 96%, 0 48px padding, active link underlined, outlined CTA.
+.site-header {
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(248, 240, 237, 0.96);
+  border-bottom: 1px solid transparent;
+  transition: background 0.35s, border-color 0.35s, box-shadow 0.35s, color 0.35s;
+  &.is-solid { border-bottom-color: var(--line-soft); box-shadow: 0 10px 30px rgba(88, 61, 63, 0.06); }
+}
+.admin-bar .site-header { top: 32px; @media (max-width: 782px) { top: 46px; } }
+
+.site-nav {
+  min-height: var(--header-h); padding: 0 var(--gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); }
+.brand-mark {
+  width: 38px; height: 38px; flex: none; border: 1px solid currentColor; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-label); font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+}
+.brand-text { display: flex; flex-direction: column; gap: 2px; line-height: 1.2; }
+.brand-name { font-family: var(--font-label); font-size: 15px; font-weight: 700; letter-spacing: 0.02em; }
+.brand-tagline { font-family: var(--font-label); font-size: 9px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.75; }
+.brand-logo { max-height: 52px; width: auto; }
+
+.site-nav .nav-links {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 34px;
+  font-family: var(--font-label); font-size: 13px; font-weight: 600;
+  a:not(.btn) {
+    display: inline-flex; align-items: center; min-height: 44px; color: inherit;
+    background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 1px no-repeat;
+    transition: background-size 0.35s var(--ease);
+    &:hover, &[aria-current="page"] { background-size: 100% 1px; color: inherit; }
+  }
+  .nav-cta { color: inherit; border-color: currentColor; }
+}
+
+// Home: the header floats over the dark hero in white until the page scrolls.
+.has-banner {
+  .site-main { margin-top: calc(-1 * var(--header-h)); }
+  .site-header:not(.is-solid) {
+    background: transparent; color: #fff;
+    .brand, .nav-links a { color: #fff; }
+    .nav-cta:hover { background: #fff; color: var(--night); }
+    .nav-toggle { color: #fff; border-color: rgba(255, 255, 255, 0.5); }
+  }
+}
+
+.nav-toggle {
+  display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: transparent; color: var(--ink); cursor: pointer;
+  align-items: center; justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .nav-toggle { display: inline-flex; }
+  .site-nav .nav-links {
+    position: fixed; inset: var(--header-h) 0 auto 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--line);
+    padding: 8px var(--gutter) 28px;
+    max-height: calc(100vh - var(--header-h)); overflow-y: auto;
+    visibility: hidden; opacity: 0; transform: translateY(-8px);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+    font-size: 15px;
+    a:not(.btn) { display: flex; min-height: 52px; border-bottom: 1px solid var(--line-soft); background: none; }
+    .nav-cta-item { margin-top: 20px; }
+  }
+  .nav-open .site-nav .nav-links { visibility: visible; opacity: 1; transform: none; }
+  .nav-open .site-header { background: var(--paper) !important; color: var(--ink) !important;
+    .brand, .nav-links a { color: var(--ink) !important; }
+    .nav-toggle { color: var(--ink) !important; border-color: var(--line) !important; }
+  }
+}

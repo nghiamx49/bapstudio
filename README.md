@@ -34,6 +34,23 @@ The theme lives in [`bap-studio/`](bap-studio/). The built CSS/JS in `bap-studio
 
 Albums appear in the header navigation automatically. Extra links can be added with a menu assigned to **Header: extra links**. A **Studio editor** user role can manage photos, albums and packages without access to plugins or theme settings.
 
+## Second look: B.A.P Studio Blush
+
+[`bap-studio-blush/`](bap-studio-blush/) is a light "editorial romance" look (blush paper, rose ink, mauve buttons, oversized Cormorant headlines with italic emphasis, hairline-divided columns, cinematic night-plum photo bands). It has the same features as the dark theme: album links in the header, the photo dialog, banner text, carousel, 3 pinned albums, pricing packages, contact form and footer.
+
+It is a **child theme** of `bap-studio`, so all content (albums, photos, packages, Studio settings, the contact form) is shared. You can switch between the two looks in **Appearance → Themes** at any time without re-entering anything.
+
+- Install: upload both `bap-studio` and `bap-studio-blush` (or `npm run zip` in each folder), then activate **B.A.P Studio Blush**.
+- Headline fields accept `*stars*` for italic words, e.g. Pinned albums heading `Tác phẩm *tiêu biểu*`.
+- The design uses Manrope and DM Sans, which have no Vietnamese letters, so Be Vietnam Pro takes both roles. The grey text colours are slightly darker than the design so small text stays readable.
+- Templates, styles and animations live in the child; the dialog, carousel, menu and "load more" scripts are imported from `bap-studio/src/js` at build time.
+
+```bash
+cd bap-studio-blush
+npm install
+npm run build   # or npm run dev / npm run zip
+```
+
 ## Development
 
 ```bash

@@ -1,0 +1,22 @@
+{
+  "name": "bap-studio-blush",
+  "version": "1.0.0",
+  "description": "B.A.P Studio Blush WordPress child theme",
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "vite build",
+    "zip": "npm run build && cd .. && rm -f bap-studio-blush.zip && zip -rq bap-studio-blush.zip bap-studio-blush -x \"bap-studio-blush/node_modules/*\" \"bap-studio-blush/src/*\" \"bap-studio-blush/package*.json\" \"bap-studio-blush/vite.config.js\""
+  },
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "sass": "^1.80.6",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "@fontsource/be-vietnam-pro": "^5.1.0",
+    "@fontsource/cormorant-garamond": "^5.1.0",
+    "gsap": "^3.13.0"
+  },
+  "private": true,
+  "type": "module"
+}
