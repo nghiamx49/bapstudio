@@ -1,10 +1,16 @@
 {
   "core": null,
   "phpVersion": "8.2",
-  "themes": [ "./bap-studio", "./bap-studio-blush" ],
+  "themes": [
+    "./bap-studio",
+    "./bap-studio-blush"
+  ],
   "plugins": [
+    "https://downloads.wordpress.org/plugin/secure-custom-fields.latest-stable.zip",
     "https://downloads.wordpress.org/plugin/contact-form-7.latest-stable.zip",
     "https://downloads.wordpress.org/plugin/flamingo.latest-stable.zip"
   ],
-  "config": { "WP_DEBUG": true }
+  "config": {
+    "WP_DEBUG": true
+  }
 }

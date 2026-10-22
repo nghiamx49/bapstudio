@@ -28,7 +28,7 @@ add_action(
 				'show_in_rest'  => true,
 				'menu_icon'     => 'dashicons-tag',
 				'menu_position' => 21,
-				// Title + "Order" (page attributes). Price and inclusions are ACF fields.
+				// Title + "Order" (page attributes). Price and inclusions are custom fields (inc/acf-fields.php).
 				'supports'      => array( 'title', 'page-attributes' ),
 				'hierarchical'  => false,
 			)

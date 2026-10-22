@@ -2,7 +2,7 @@
 /**
  * B.A.P Studio Blush: child theme bootstrap.
  *
- * Content model, Studio settings (ACF), album taxonomy, pricing packages,
+ * Content model, Studio settings (Secure Custom Fields), album taxonomy, pricing packages,
  * the REST "load more" endpoint and the Contact Form 7 integration all come
  * from the parent theme (bap-studio). This theme only changes the look:
  * templates, styles, fonts and animations.
