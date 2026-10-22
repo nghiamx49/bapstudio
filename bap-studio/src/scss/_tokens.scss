@@ -1,0 +1,33 @@
+// Design tokens from the "Wedding Studio Website" mockup.
+:root {
+  --bg: #141210;
+  --bg-deep: #0c0b0a;
+  --surface: #201c18;
+  --surface-2: #2a2521;
+  --line: #2c2722;
+  --line-strong: #4a4239;
+  --gold: #d8be8e;
+  --gold-light: #f1ddb6;
+  --gold-soft: #e7d3ae;
+  --text: #ede6db;
+  --text-strong: #f6f1e8;
+  --text-muted: #cfc5b7;
+  --text-dim: #a89c8c;
+  --on-gold: #1a1714;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Be Vietnam Pro", system-ui, sans-serif;
+
+  --container: 1320px;
+  --gutter: 24px;
+  --header-h: 72px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  @media (max-width: 480px) {
+    --gutter: 16px;
+  }
+}
+
+$bp-lg: 1024px;
+$bp-md: 768px;
+$bp-sm: 480px;

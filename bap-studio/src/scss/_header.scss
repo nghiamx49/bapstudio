@@ -1,0 +1,61 @@
+.site-header {
+  position: sticky; top: 0; z-index: 30;
+  background: rgba(20, 18, 16, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+  &.is-solid { background: var(--bg); border-bottom-color: var(--line); }
+}
+.admin-bar .site-header { top: 32px; @media (max-width: 782px) { top: 46px; } }
+
+// On the home page the header floats over the banner.
+.has-banner .site-header:not(.is-solid) { background: transparent; backdrop-filter: none; }
+.has-banner .site-main { margin-top: calc(-1 * var(--header-h)); }
+
+.site-nav {
+  min-height: var(--header-h);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.brand {
+  font-family: var(--font-display); font-size: 28px; font-weight: 500;
+  letter-spacing: 0.04em; color: var(--text);
+  &:hover { color: var(--gold); }
+}
+.brand-logo { max-height: 48px; width: auto; }
+
+.nav-links {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 28px;
+  font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase;
+  a { color: var(--text-muted); position: relative; padding: 6px 0; }
+  a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+    background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease);
+  }
+  a:hover, a[aria-current="page"] { color: var(--gold); }
+  a:hover::after, a[aria-current="page"]::after { transform: scaleX(1); }
+  .nav-cta { color: var(--gold); }
+}
+
+.nav-toggle {
+  display: none; width: 44px; height: 44px; border: 1px solid var(--line-strong);
+  background: transparent; color: var(--text); cursor: pointer;
+  align-items: center; justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: inline-flex; }
+  .nav-links {
+    position: fixed; inset: var(--header-h) 0 auto 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    padding: 8px var(--gutter) 24px;
+    max-height: calc(100vh - var(--header-h)); overflow-y: auto;
+    visibility: hidden; opacity: 0; transform: translateY(-8px);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+    a { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    a::after { display: none; }
+  }
+  .nav-open .nav-links { visibility: visible; opacity: 1; transform: none; }
+  .nav-open .site-header { background: var(--bg) !important; backdrop-filter: none; }
+}
