@@ -1,0 +1,7 @@
+// Generic pages, 404 and the posts fallback (templates inherited from the parent theme).
+.section > .container.narrow > .section-title,
+.section > .container.narrow > .eyebrow + .section-title { font-size: clamp(48px, 7vw, 92px); line-height: 0.9; letter-spacing: -0.05em; margin-bottom: 32px; }
+.entry-card { padding: 32px 0; border-top: 1px solid var(--line-soft); }
+.entry-title { font-family: var(--font-display); font-weight: 500; font-size: 40px; letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; }
+.pricing-page, .album-page { padding-top: clamp(64px, 8vw, 104px); }
+.pagination .nav-links { display: flex; gap: 12px; font-family: var(--font-label); font-weight: 700; font-size: 13px; }

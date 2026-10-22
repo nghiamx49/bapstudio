@@ -1,0 +1,37 @@
+// Design tokens from the "Editorial romance" design language (blush paper, rose ink, mauve).
+:root {
+  --paper: #f8f0ed;        // page ground
+  --paper-2: #f4f0ea;      // light text on dark, quiet panels
+  --paper-deep: #e7ded3;   // image placeholders
+  --ink: #583d3f;          // rose ink: text and headings
+  --mauve: #8c4d59;        // primary button
+  --mauve-deep: #74404a;
+  --night: #251f21;        // night plum: dark showcase bands
+  --black: #171717;
+  --rose: #ef9eaa;         // icons and glyphs
+  --peach: #edc2ad;
+  --champagne: #e7c59c;
+  // Stone and taupe from the design, nudged darker so small text passes 4.5:1 on blush.
+  --stone: #675f58;        // body muted
+  --taupe: #6f675f;        // kickers
+  --line: rgba(88, 61, 63, 0.18);
+  --line-soft: rgba(88, 61, 63, 0.14);
+  --line-dark: rgba(255, 255, 255, 0.18);
+  --on-dark-muted: rgba(255, 255, 255, 0.78);
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  // Manrope (labels) and DM Sans (body) have no Vietnamese glyphs; Be Vietnam Pro covers both roles.
+  --font-label: "Be Vietnam Pro", "Manrope", Arial, sans-serif;
+  --font-body: "Be Vietnam Pro", "DM Sans", Arial, sans-serif;
+
+  --container: 1280px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --header-h: 92px;
+  --radius: 12px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --section-pad: clamp(88px, 11vw, 140px);
+
+  @media (max-width: 768px) {
+    --header-h: 72px;
+  }
+}
