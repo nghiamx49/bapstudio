@@ -1,0 +1,108 @@
+// Kicker / eyebrow: tiny tracked caps. ".eyebrow" is the parent theme's name for it.
+.kicker, .eyebrow {
+  margin: 0 0 20px;
+  font-family: var(--font-label); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase; line-height: 1.5;
+  color: var(--taupe);
+  &.on-dark { color: rgba(255, 255, 255, 0.78); }
+  &.small { margin-bottom: 8px; }
+}
+.kicker-num { font-variant-numeric: tabular-nums; }
+
+.section { padding: var(--section-pad) 0 0; }
+.section:last-of-type { padding-bottom: var(--section-pad); }
+
+// Display sizes from the design (desktop: H1 112px, H2 78px), scaled down on small screens.
+.section-title, .hero-title {
+  font-family: var(--font-display); font-weight: 500;
+  em { font-weight: 400; }
+  .line { padding-bottom: 0.06em; } // keep descenders inside SplitText masks
+}
+.section-title { font-size: clamp(44px, 6.4vw, 78px); line-height: 0.92; letter-spacing: -0.045em; }
+h1.section-title { font-size: clamp(52px, 8vw, 104px); line-height: 0.9; letter-spacing: -0.05em; }
+
+// Section header: 7/5 split, serif headline left, aside + text link right on the baseline.
+.section-head {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px 64px; align-items: end;
+  margin-bottom: clamp(48px, 6vw, 80px);
+  @media (max-width: 900px) { grid-template-columns: 1fr; }
+}
+.section-head-aside { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.aside, .lead { margin: 0; max-width: 460px; font-size: 15px; line-height: 1.75; color: var(--stone); }
+
+// Buttons: label font 700, 11–12px, +0.04em, 48px tall, 12px radius; arrows trail every action.
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 48px; padding: 0 22px; border-radius: var(--radius);
+  font-family: var(--font-label); font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  border: 1px solid transparent; background: none; cursor: pointer; white-space: nowrap;
+  transition: background 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s var(--ease);
+  .arrow { transition: transform 0.3s var(--ease); }
+  &:hover .arrow { transform: translate(2px, -2px); }
+}
+.btn-primary {
+  background: var(--mauve); color: var(--paper); box-shadow: 0 12px 28px rgba(140, 77, 89, 0.32);
+  &:hover { background: var(--mauve-deep); color: var(--paper); box-shadow: 0 16px 32px rgba(140, 77, 89, 0.38); }
+}
+.btn-outline, .btn-ghost {
+  min-height: 44px; padding: 0 20px; border-color: var(--ink); color: var(--ink);
+  &:hover { background: var(--ink); color: var(--paper); }
+}
+.btn-pill {
+  border-radius: 999px; background: var(--paper-2); color: var(--black);
+  &:hover { background: #fff; color: var(--black); }
+}
+.btn-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
+.btn[disabled] { opacity: 0.5; cursor: wait; }
+
+.text-link, .link-arrow {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px;
+  font-family: var(--font-label); font-size: 12px; font-weight: 700; letter-spacing: 0.03em;
+  color: var(--ink);
+  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 10px) / 0 1px no-repeat;
+  transition: background-size 0.35s var(--ease), color 0.2s;
+  &:hover { color: var(--mauve); background-size: 100% 1px; }
+  .arrow { transition: transform 0.3s var(--ease); }
+  &:hover .arrow { transform: translate(2px, -2px); }
+  &.on-dark { color: #fff; &:hover { color: #fff; } }
+  .count { font-weight: 400; color: var(--stone); }
+}
+
+// Columns divided by hairlines, never boxed cards. The top rule draws in (--rule animated by GSAP).
+// Equal column widths; the vertical hairline sits in the middle of the gap.
+.hairline-cols {
+  --rule: 1;
+  --cols: 3;
+  --gap: 80px;
+  position: relative; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--gap);
+  &::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+    background: var(--line); transform: scaleX(var(--rule)); transform-origin: left;
+  }
+  > * { position: relative; padding: 24px 0 48px; }
+  > *::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: calc(var(--gap) / -2);
+    width: 1px; background: var(--line-soft);
+  }
+  > :nth-child(3n + 1)::before { display: none; }
+  > :nth-child(n + 4) { border-top: 1px solid var(--line-soft); }
+
+  @media (max-width: 1024px) {
+    --cols: 2; --gap: 56px;
+    > :nth-child(3n + 1)::before { display: block; }
+    > :nth-child(odd)::before { display: none; }
+    > :nth-child(n + 3) { border-top: 1px solid var(--line-soft); }
+  }
+  @media (max-width: 680px) {
+    --cols: 1;
+    > *::before { display: none !important; }
+    > * { padding: 24px 0 40px; }
+    > :nth-child(n + 2) { border-top: 1px solid var(--line-soft); }
+  }
+}
+.col-num {
+  font-family: var(--font-label); font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  color: var(--taupe); font-variant-numeric: tabular-nums;
+}
+
+.icon { flex: none; }

@@ -1,0 +1,13 @@
+/*
+Theme Name:  B.A.P Studio Blush
+Theme URI:   https://github.com/nghiamx49/bapstudio
+Description: Light "editorial romance" look for the B.A.P Studio site: blush paper, rose ink, oversized Cormorant headlines with italic emphasis and cinematic dark photo bands. A child of the B.A.P Studio theme, so albums, photos, pricing packages, Studio settings and the contact form are shared; switch between the two looks without re-entering content.
+Template:    bap-studio
+Version:     1.0.0
+Requires at least: 6.6
+Requires PHP: 8.1
+Text Domain: bap-studio-blush
+License:     GPL-2.0-or-later
+*/
+
+/* Styles are compiled from src/scss into dist/main.css. */

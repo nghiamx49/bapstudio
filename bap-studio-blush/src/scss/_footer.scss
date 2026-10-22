@@ -1,0 +1,25 @@
+// Footer on ink black with light text and a pill button.
+.site-footer { background: var(--black); color: var(--paper-2); padding: clamp(64px, 8vw, 104px) 0 0; font-size: 14px; }
+.site-footer a:not(.btn) { color: var(--paper-2); &:hover { color: #fff; } }
+.footer-top {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px;
+  padding-bottom: 48px; border-bottom: 1px solid var(--line-dark);
+}
+.footer-brand .kicker { margin-bottom: 12px; }
+.footer-name {
+  margin: 0; font-family: var(--font-display); font-weight: 500; color: #fff;
+  font-size: clamp(48px, 7vw, 96px); line-height: 0.9; letter-spacing: -0.05em;
+}
+.footer-cols {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+  padding: 40px 0;
+  @media (max-width: 768px) { grid-template-columns: 1fr; gap: 24px; }
+  p { margin: 0 0 6px; }
+  address { font-style: normal; }
+}
+.footer-label { font-family: var(--font-label); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.7) !important; margin-bottom: 12px !important; }
+.footer-social { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.footer-bottom {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  padding: 20px 0 28px; border-top: 1px solid var(--line-dark); font-size: 12px; color: rgba(255, 255, 255, 0.7);
+}

@@ -1,7 +1,7 @@
 {
   "core": null,
   "phpVersion": "8.2",
-  "themes": [ "./bap-studio" ],
+  "themes": [ "./bap-studio", "./bap-studio-blush" ],
   "plugins": [
     "https://downloads.wordpress.org/plugin/contact-form-7.latest-stable.zip",
     "https://downloads.wordpress.org/plugin/flamingo.latest-stable.zip"
