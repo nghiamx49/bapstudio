@@ -1,0 +1,40 @@
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db:/var/lib/mysql
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "8025:8025"
+  wordpress:
+    image: wordpress:latest
+    depends_on: [db, mailpit]
+    ports:
+      - "8085:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+      WORDPRESS_DB_NAME: wordpress
+      # Local dev only: use the address the visitor arrived on (localhost or a tunnel such as
+      # localtunnel) instead of the saved one, so links, CSS and redirects work through the tunnel.
+      # "$$" is how docker compose writes a literal "$".
+      WORDPRESS_CONFIG_EXTRA: |
+        if ( ! empty( $$_SERVER['HTTP_HOST'] ) ) {
+          $$bap_scheme = ( ( $$_SERVER['HTTPS'] ?? '' ) === 'on' ) ? 'https' : 'http';
+          define( 'WP_HOME', $$bap_scheme . '://' . $$_SERVER['HTTP_HOST'] );
+          define( 'WP_SITEURL', WP_HOME );
+        }
+    volumes:
+      - ./bap-studio:/var/www/html/wp-content/themes/bap-studio
+      - ./bap-studio-blush:/var/www/html/wp-content/themes/bap-studio-blush
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+      - ./docker/wordpress/mu-plugins/local-smtp.php:/var/www/html/wp-content/mu-plugins/local-smtp.php:ro
+volumes:
+  db:

@@ -50,7 +50,7 @@ if ( ! $bap_packages ) {
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
-			<a class="btn <?php echo $bap_highlight ? 'btn-primary' : 'btn-outline'; ?>" href="<?php echo esc_url( bap_blush_contact_url() ); ?>" data-package="<?php echo esc_attr( get_the_title( $bap_pkg ) ); ?>"><?php echo esc_html( $bap_btn ); ?> <?php echo bap_blush_arrow(); // phpcs:ignore ?></a>
+			<a class="btn <?php echo $bap_highlight ? 'btn-primary' : 'btn-outline'; ?>" href="<?php echo esc_url( bap_package_booking_url( $bap_pkg ) ); ?>" data-package="<?php echo esc_attr( get_the_title( $bap_pkg ) ); ?>"><?php echo esc_html( $bap_btn ); ?> <?php echo bap_blush_arrow(); // phpcs:ignore ?></a>
 		</article>
 	<?php endforeach; ?>
 </div>

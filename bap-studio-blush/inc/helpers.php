@@ -47,10 +47,6 @@ function bap_blush_monogram(): string {
 	return mb_strtoupper( $mono ?: 'S' );
 }
 
-/** Link to the contact section, on this page when it has one. */
-function bap_blush_contact_url(): string {
-	return ( is_front_page() || is_page_template( 'page-pricing.php' ) ) ? '#lien-he' : home_url( '/#lien-he' );
-}
 
 /**
  * Pinned albums (up to 3) from Studio settings, falling back to the first 3.
@@ -66,4 +62,50 @@ function bap_blush_pinned_albums(): array {
 		}
 	}
 	return $terms ? $terms : array_slice( bap_albums(), 0, 3 );
+}
+
+/**
+ * The floating photo cards in the hero, from Studio settings → Banner → Hero cards.
+ * With no cards added, shows the first pinned album.
+ *
+ * @return array<int, array{url:string,image:int,kicker:string,title:string,link_label:string}>
+ */
+function bap_blush_hero_cards(): array {
+	if ( bap_option( 'hero_card_hidden', false ) ) {
+		return array();
+	}
+	$rows = (array) bap_option( 'hero_cards', array() );
+	if ( ! $rows ) {
+		$first_pinned = bap_blush_pinned_albums()[0] ?? null;
+		$rows         = $first_pinned ? array( array( 'album' => $first_pinned->term_id ) ) : array();
+	}
+	$cards = array();
+	foreach ( array_slice( $rows, 0, 3 ) as $row ) {
+		$card = bap_blush_build_hero_card( (array) $row, count( $cards ) );
+		if ( $card ) {
+			$cards[] = $card;
+		}
+	}
+	return $cards;
+}
+
+/**
+ * One hero card from a "Hero cards" row; empty texts and image fall back to the album's.
+ *
+ * @return array{url:string,image:int,kicker:string,title:string,link_label:string}|null Null when the album is gone.
+ */
+function bap_blush_build_hero_card( array $row, int $index ): ?array {
+	$album = get_term( (int) ( $row['album'] ?? 0 ), 'bap_album' );
+	if ( ! $album instanceof WP_Term ) {
+		return null;
+	}
+	$pinned_title = str_replace( '*', '', (string) bap_option( 'pinned_title', 'Tác phẩm tiêu biểu' ) );
+
+	return array(
+		'url'        => (string) get_term_link( $album ),
+		'image'      => bap_attachment_id( $row['image'] ?? 0 ) ?: bap_album_card_data( $album )['cover'],
+		'kicker'     => (string) ( $row['kicker'] ?? '' ) ?: sprintf( '%s · %02d', $pinned_title, $index + 1 ),
+		'title'      => (string) ( $row['title'] ?? '' ) ?: $album->name,
+		'link_label' => (string) ( $row['link_label'] ?? '' ) ?: __( 'Xem album', 'bap-studio-blush' ),
+	);
 }

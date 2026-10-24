@@ -24,22 +24,48 @@
 }
 .hero-sub { margin: 0; max-width: 460px; font-size: 16px; line-height: 1.7; color: var(--on-dark-muted); }
 
-.hero-card {
-  position: absolute; right: var(--gutter); bottom: 72px;
-  width: 220px; min-height: 280px; padding: 20px;
-  display: flex; flex-direction: column; gap: 14px;
-  background: rgba(246, 235, 225, 0.92); color: var(--black);
-  box-shadow: 12px 18px 30px rgba(0, 0, 0, 0.18);
-  transform: rotate(-4deg);
-  transition: box-shadow 0.3s;
-  &:hover { color: var(--black); box-shadow: 16px 24px 40px rgba(0, 0, 0, 0.26); }
+// Up to 3 paper prints fanned out at the bottom right. Later cards sit in front;
+// the hovered card comes to the very front.
+.hero-cards {
+  --card-w: 196px;
+  --card-overlap: 24px;
+  position: absolute; right: var(--gutter); bottom: 64px;
+  display: flex; align-items: flex-end;
 }
-.hero-card-kicker { font-family: var(--font-label); font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--stone); }
-.hero-card-title { font-family: var(--font-display); font-size: 46px; line-height: 0.88; letter-spacing: -0.04em; }
-.hero-card-foot { margin-top: auto; font-family: var(--font-display); font-style: italic; font-size: 17px; }
+// --tilt is the resting angle; --spin and --lift are animated by GSAP on top of it.
+.hero-card {
+  --tilt: -4deg;
+  --spin: 0deg;
+  --lift: 0px;
+  position: relative; width: var(--card-w); padding: 12px 12px 16px;
+  display: flex; flex-direction: column; gap: 10px;
+  background: rgba(246, 235, 225, 0.94); color: var(--black);
+  box-shadow: 12px 18px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(var(--lift)) rotate(calc(var(--tilt) + var(--spin)));
+  transition: box-shadow 0.3s;
+  & + & { margin-left: calc(var(--card-overlap) * -1); }
+  &:hover, &:focus-visible { z-index: 4; color: var(--black); box-shadow: 16px 24px 44px rgba(0, 0, 0, 0.32); }
+}
+.hero-card:not(:only-child) {
+  &:nth-child(1) { --tilt: -8deg; }
+  &:nth-child(2) { --tilt: -1deg; margin-bottom: 36px; }
+  &:nth-child(3) { --tilt: 6deg; }
+}
+.hero-card-photo {
+  display: block; aspect-ratio: 4 / 5; overflow: hidden; background: var(--paper-deep);
+  img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease); }
+}
+.hero-card:hover .hero-card-photo img { transform: scale(1.05); }
+.hero-card-kicker { padding: 0 4px; font-family: var(--font-label); font-size: 9px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--stone); }
+.hero-card-title { padding: 0 4px; font-family: var(--font-display); font-size: 28px; line-height: 0.95; letter-spacing: -0.03em; }
+.hero-card-foot { padding: 0 4px; font-family: var(--font-display); font-style: italic; font-size: 16px; }
 
+@media (max-width: 1279px) {
+  .hero-card:nth-child(n + 2) { display: none; }
+  .hero-card:nth-child(1) { --tilt: -4deg; }
+}
 @media (max-width: 1024px) {
-  .hero-card { display: none; }
+  .hero-cards { display: none; }
 }
 @media (max-width: 600px) {
   .hero { align-items: flex-end; }

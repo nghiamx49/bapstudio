@@ -14,9 +14,13 @@ $bap_primary = function_exists( 'get_field' ) ? (string) get_field( 'banner_prim
 $bap_primary = $bap_primary ? $bap_primary : "Lưu giữ khoảnh khắc\n*đẹp nhất đời bạn*";
 
 $bap_cta  = bap_option( 'banner_cta', array( 'url' => '#bo-suu-tap', 'title' => 'Xem thư viện ảnh' ) );
-$bap_cta2 = bap_option( 'banner_cta2', array( 'url' => '#lien-he', 'title' => 'Đặt lịch tư vấn' ) );
+$bap_cta2 = bap_option( 'banner_cta2', array( 'url' => bap_contact_url(), 'title' => 'Đặt lịch tư vấn' ) );
+$bap_cta['url']  = bap_resolve_contact_link( (string) ( $bap_cta['url'] ?? '' ) );
+$bap_cta2['url'] = bap_resolve_contact_link( (string) ( $bap_cta2['url'] ?? '' ) );
+// A down arrow only makes sense for a link that scrolls within this page.
+$bap_cta2_arrow = str_starts_with( $bap_cta2['url'], '#' ) ? 'down' : 'up';
 
-$bap_pick = bap_blush_pinned_albums()[0] ?? null;
+$bap_cards = bap_blush_hero_cards();
 ?>
 <section class="hero" data-banner>
 	<div class="hero-media" data-banner-media>
@@ -48,17 +52,26 @@ $bap_pick = bap_blush_pinned_albums()[0] ?? null;
 					<a class="btn btn-primary" href="<?php echo esc_url( $bap_cta['url'] ); ?>"<?php echo ! empty( $bap_cta['target'] ) ? ' target="' . esc_attr( $bap_cta['target'] ) . '"' : ''; ?>><?php echo esc_html( $bap_cta['title'] ); ?> <?php echo bap_blush_arrow(); // phpcs:ignore ?></a>
 				<?php endif; ?>
 				<?php if ( ! empty( $bap_cta2['url'] ) ) : ?>
-					<a class="text-link on-dark" href="<?php echo esc_url( $bap_cta2['url'] ); ?>"<?php echo ! empty( $bap_cta2['target'] ) ? ' target="' . esc_attr( $bap_cta2['target'] ) . '"' : ''; ?>><?php echo esc_html( $bap_cta2['title'] ); ?> <?php echo bap_blush_arrow( 'down' ); // phpcs:ignore ?></a>
+					<a class="text-link on-dark" href="<?php echo esc_url( $bap_cta2['url'] ); ?>"<?php echo ! empty( $bap_cta2['target'] ) ? ' target="' . esc_attr( $bap_cta2['target'] ) . '"' : ''; ?>><?php echo esc_html( $bap_cta2['title'] ); ?> <?php echo bap_blush_arrow( $bap_cta2_arrow ); // phpcs:ignore ?></a>
 				<?php endif; ?>
 			</div>
 		</div>
 
-		<?php if ( $bap_pick ) : ?>
-			<a class="hero-card" href="<?php echo esc_url( get_term_link( $bap_pick ) ); ?>" data-hero-card>
-				<span class="hero-card-kicker"><?php echo esc_html( str_replace( '*', '', (string) bap_option( 'pinned_title', 'Tác phẩm tiêu biểu' ) ) ); ?> · 01</span>
-				<span class="hero-card-title"><?php echo esc_html( $bap_pick->name ); ?></span>
-				<span class="hero-card-foot"><?php esc_html_e( 'Xem album', 'bap-studio-blush' ); ?> <?php echo bap_blush_arrow(); // phpcs:ignore ?></span>
-			</a>
+		<?php if ( $bap_cards ) : ?>
+			<div class="hero-cards" data-hero-cards>
+				<?php foreach ( $bap_cards as $bap_card ) : ?>
+					<a class="hero-card" href="<?php echo esc_url( $bap_card['url'] ); ?>" data-hero-card>
+						<?php if ( $bap_card['image'] ) : ?>
+							<span class="hero-card-photo">
+								<?php echo wp_get_attachment_image( $bap_card['image'], 'bap-card', false, array( 'alt' => '', 'loading' => 'eager', 'sizes' => '200px' ) ); ?>
+							</span>
+						<?php endif; ?>
+						<span class="hero-card-kicker"><?php echo esc_html( $bap_card['kicker'] ); ?></span>
+						<span class="hero-card-title"><?php echo esc_html( $bap_card['title'] ); ?></span>
+						<span class="hero-card-foot"><?php echo esc_html( $bap_card['link_label'] ); ?> <?php echo bap_blush_arrow(); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+					</a>
+				<?php endforeach; ?>
+			</div>
 		<?php endif; ?>
 	</div>
 

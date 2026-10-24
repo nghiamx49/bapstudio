@@ -19,6 +19,7 @@ import { initNav } from '@parent/nav.js';
 import { initDialog } from '@parent/dialog.js';
 import { initCarousels } from '@parent/carousel.js';
 import { initLoadMore } from '@parent/gallery.js';
+import { initBooking } from '@parent/booking.js';
 
 import { initAnimations } from './animations.js';
 
@@ -30,12 +31,7 @@ ready(() => {
   initDialog();
   initCarousels();
   initLoadMore();
-  // "Đặt lịch" on a pricing card pre-selects that package in the contact form.
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-package]');
-    const select = document.querySelector('select[name="your-package"]');
-    if (btn && select) select.value = btn.dataset.package;
-  });
+  initBooking();
   // Wait for fonts so headlines are split into lines at their final size.
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(initAnimations);
 });

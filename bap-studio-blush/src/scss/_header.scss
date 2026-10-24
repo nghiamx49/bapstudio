@@ -34,6 +34,8 @@
     &:hover, &[aria-current="page"] { background-size: 100% 1px; color: inherit; }
   }
   .nav-cta { color: inherit; border-color: currentColor; }
+  // On the contact page the button stands in for the "Liên hệ" menu item, so it shows as current.
+  .nav-cta[aria-current="page"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 }
 
 // Home: the header floats over the dark hero in white until the page scrolls.

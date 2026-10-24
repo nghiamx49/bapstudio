@@ -26,7 +26,8 @@ add_action(
 
 		register_nav_menus(
 			array(
-				'extra' => __( 'Header: extra links (after albums)', 'bap-studio' ),
+				'primary' => __( 'Header: main menu (replaces the album links)', 'bap-studio' ),
+				'extra'   => __( 'Header: extra links (after albums)', 'bap-studio' ),
 			)
 		);
 	}
@@ -46,6 +47,46 @@ add_filter(
 
 /** Remove WordPress's 2560px "-scaled" cap so the dialog can show large photos. */
 add_filter( 'big_image_size_threshold', static fn() => 3000 );
+
+/** Menu links to the old home contact section ("/#lien-he") go to the contact page. */
+add_filter(
+	'nav_menu_link_attributes',
+	static function ( array $atts ) {
+		if ( isset( $atts['href'] ) ) {
+			$atts['href'] = bap_resolve_contact_link( $atts['href'] );
+		}
+		return $atts;
+	},
+	5
+);
+
+/**
+ * WordPress marks "/#section" menu links as the current page on the homepage,
+ * which would highlight every section link at once. Only plain URLs stay current.
+ */
+add_filter(
+	'nav_menu_link_attributes',
+	static function ( array $atts ) {
+		if ( isset( $atts['href'] ) && str_contains( $atts['href'], '#' ) ) {
+			unset( $atts['aria-current'] );
+		}
+		return $atts;
+	}
+);
+
+/** Albums live under the catalogue page, so its menu link stays current on album pages. */
+add_filter(
+	'nav_menu_link_attributes',
+	static function ( array $atts, $item ) {
+		$is_catalogue_item = 'page' === $item->object && (int) $item->object_id === bap_page_id_by_template( 'page-catalogue.php' );
+		if ( $is_catalogue_item && is_tax( 'bap_album' ) ) {
+			$atts['aria-current'] = 'page';
+		}
+		return $atts;
+	},
+	10,
+	2
+);
 
 /**
  * "Studio editor" role: manages photos, albums and packages only.

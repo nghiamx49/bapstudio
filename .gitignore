@@ -1,3 +1,9 @@
 node_modules/
-bap-studio.zip
 .DS_Store
+.idea/
+
+# Theme builds and downloaded archives
+*.zip
+
+# Source photos (~470MB); they live in the WordPress Media Library
+images/

@@ -20,4 +20,4 @@
   li { display: flex; gap: 10px; align-items: flex-start; }
   .icon { width: 16px; height: 16px; color: var(--mauve); margin-top: 3px; }
 }
-.pricing-intro { max-width: 760px; margin: -32px 0 56px; }
+.pricing-intro, .catalogue-intro { max-width: 760px; margin: -32px 0 56px; }

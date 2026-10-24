@@ -1,6 +1,6 @@
 <?php
 /**
- * Home page: banner, carousel, pinned albums, pricing, contact.
+ * Home page: banner, carousel, pinned albums, pricing. The contact form lives on the contact page.
  *
  * @package bap-studio
  */
@@ -30,7 +30,5 @@ if ( bap_packages() ) :
 	</section>
 	<?php
 endif;
-
-get_template_part( 'template-parts/contact' );
 
 get_footer();

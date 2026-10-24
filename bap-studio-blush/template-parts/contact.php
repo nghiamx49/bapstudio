@@ -2,6 +2,8 @@
 /**
  * Contact section: section header, studio details as hairline rows, and the booking form.
  *
+ * Args: num (int), is_page (bool) — true on the contact page, where the title is the page's h1.
+ *
  * @package bap-studio-blush
  */
 
@@ -11,8 +13,9 @@ $bap_phone   = bap_option( 'phone' );
 $bap_email   = bap_option( 'email' );
 $bap_address = bap_option( 'address' );
 $bap_num     = (int) ( $args['num'] ?? 0 );
+$bap_is_page = ! empty( $args['is_page'] );
 ?>
-<section class="section contact" id="lien-he">
+<section class="section contact<?php echo $bap_is_page ? ' contact-page' : ''; ?>" id="lien-he">
 	<div class="container">
 		<?php
 		get_template_part(
@@ -23,6 +26,7 @@ $bap_num     = (int) ( $args['num'] ?? 0 );
 				'kicker' => __( 'Liên hệ', 'bap-studio-blush' ),
 				'title'  => bap_option( 'contact_title', 'Hãy để chúng tôi đồng hành cùng *ngày trọng đại* của bạn' ),
 				'aside'  => bap_option( 'contact_text', 'Liên hệ để nhận tư vấn ý tưởng và báo giá chi tiết — miễn phí.' ),
+				'tag'    => $bap_is_page ? 'h1' : 'h2',
 			)
 		);
 		?>

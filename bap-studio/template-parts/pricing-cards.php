@@ -7,8 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$bap_packages    = bap_packages();
-$bap_contact_url = ( is_front_page() || is_page_template( 'page-pricing.php' ) ) ? '#lien-he' : home_url( '/#lien-he' );
+$bap_packages = bap_packages();
 if ( ! $bap_packages ) {
 	return;
 }
@@ -48,7 +47,7 @@ if ( ! $bap_packages ) {
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
-			<a class="btn <?php echo $bap_highlight ? 'btn-primary' : 'btn-ghost'; ?>" href="<?php echo esc_url( $bap_contact_url ); ?>" data-package="<?php echo esc_attr( get_the_title( $bap_pkg ) ); ?>"><?php echo esc_html( $bap_btn ); ?></a>
+			<a class="btn <?php echo $bap_highlight ? 'btn-primary' : 'btn-ghost'; ?>" href="<?php echo esc_url( bap_package_booking_url( $bap_pkg ) ); ?>" data-package="<?php echo esc_attr( get_the_title( $bap_pkg ) ); ?>"><?php echo esc_html( $bap_btn ); ?></a>
 		</article>
 	<?php endforeach; ?>
 </div>

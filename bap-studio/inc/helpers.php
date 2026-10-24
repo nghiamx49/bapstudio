@@ -94,6 +94,19 @@ function bap_dialog_attrs( int $attachment_id ): void {
 	);
 }
 
+/** Render a header menu location as bare <li> items inside the existing nav list. */
+function bap_render_header_menu( string $location ): void {
+	wp_nav_menu(
+		array(
+			'theme_location' => $location,
+			'container'      => false,
+			'items_wrap'     => '%3$s',
+			'fallback_cb'    => false,
+			'depth'          => 1,
+		)
+	);
+}
+
 /** Render one gallery grid tile. */
 function bap_render_photo_tile( int $attachment_id ): void {
 	get_template_part( 'template-parts/photo-tile', null, array( 'id' => $attachment_id ) );
@@ -158,6 +171,86 @@ function bap_album_photos( int $term_id, int $page = 1, int $per_page = 24 ): ar
 		'total' => (int) $query->found_posts,
 		'pages' => (int) $query->max_num_pages,
 	);
+}
+
+/**
+ * What an album card shows: cover (the "Cover image" field, else the newest photo),
+ * up to 3 other photos as thumbnails, the album link and its intro.
+ *
+ * @return array{cover:int,thumbs:int[],link:string,intro:string}
+ */
+function bap_album_card_data( WP_Term $term ): array {
+	$photos = bap_album_photos( $term->term_id, 1, 4 );
+	$cover  = bap_attachment_id( bap_field( 'cover', $term ) );
+	if ( ! $cover && $photos['ids'] ) {
+		$cover = $photos['ids'][0];
+	}
+	$link = get_term_link( $term );
+
+	return array(
+		'cover'  => $cover,
+		'thumbs' => array_slice( array_values( array_diff( $photos['ids'], array( $cover ) ) ), 0, 3 ),
+		'link'   => is_wp_error( $link ) ? '' : $link,
+		'intro'  => (string) bap_field( 'intro', $term, $term->description ),
+	);
+}
+
+/** Albums that have at least one photo, in menu order. */
+function bap_albums_with_photos(): array {
+	return array_values( array_filter( bap_albums(), static fn( WP_Term $term ) => $term->count > 0 ) );
+}
+
+/** ID of the first published page using the given page template (e.g. "page-catalogue.php"), or 0. */
+function bap_page_id_by_template( string $template ): int {
+	$pages = get_pages(
+		array(
+			'meta_key'   => '_wp_page_template', // phpcs:ignore WordPress.DB.SlowDBQuery
+			'meta_value' => $template, // phpcs:ignore WordPress.DB.SlowDBQuery
+			'number'     => 1,
+		)
+	);
+	return $pages ? (int) $pages[0]->ID : 0;
+}
+
+/** Permalink of the contact page, or '' when there is none. */
+function bap_contact_page_url(): string {
+	$contact_page = bap_page_id_by_template( 'page-contact.php' );
+	return $contact_page ? (string) get_permalink( $contact_page ) : '';
+}
+
+/**
+ * Where every "Đặt lịch" button points: the contact page. Without one, the contact
+ * section on this page when it has one, else the home page.
+ */
+function bap_contact_url(): string {
+	$contact_page = bap_contact_page_url();
+	if ( $contact_page ) {
+		return $contact_page;
+	}
+	$has_contact_section = is_page_template( array( 'page-pricing.php', 'page-catalogue.php', 'page-contact.php' ) );
+	return $has_contact_section ? '#lien-he' : home_url( '/' );
+}
+
+/**
+ * "Đặt lịch" link for a pricing package. When it goes to the contact page, the package
+ * travels as ?goi=<title> so the contact form can pre-select it.
+ */
+function bap_package_booking_url( WP_Post $package ): string {
+	$url = bap_contact_url();
+	return str_starts_with( $url, '#' ) ? $url : add_query_arg( 'goi', rawurlencode( $package->post_title ), $url );
+}
+
+/**
+ * The home page no longer has a contact section, so links to it ("#lien-he" or
+ * "<home>/#lien-he", e.g. from a banner button or a menu) go to bap_contact_url().
+ */
+function bap_resolve_contact_link( string $url ): string {
+	if ( '#lien-he' !== strstr( $url, '#' ) ) {
+		return $url;
+	}
+	$target       = untrailingslashit( explode( '#', $url, 2 )[0] );
+	$is_home_link = '' === $target || untrailingslashit( home_url( '/' ) ) === $target;
+	return $is_home_link ? bap_contact_url() : $url;
 }
 
 /** Pricing packages in display order. */

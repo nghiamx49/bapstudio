@@ -2,6 +2,8 @@
 /**
  * Contact section: intro, studio details and the booking form.
  *
+ * Args: is_page (bool) — true on the contact page, where the title is the page's h1.
+ *
  * @package bap-studio
  */
 
@@ -10,13 +12,15 @@ defined( 'ABSPATH' ) || exit;
 $bap_phone   = bap_option( 'phone' );
 $bap_email   = bap_option( 'email' );
 $bap_address = bap_option( 'address' );
+$bap_is_page = ! empty( $args['is_page'] );
+$bap_tag     = $bap_is_page ? 'h1' : 'h2';
 ?>
-<section class="section contact" id="lien-he">
+<section class="section contact<?php echo $bap_is_page ? ' contact-page' : ''; ?>" id="lien-he">
 	<div class="container">
 		<div class="contact-box" data-reveal>
 			<div class="contact-intro">
 				<p class="eyebrow"><?php esc_html_e( 'Liên hệ', 'bap-studio' ); ?></p>
-				<h2 class="section-title"><?php echo esc_html( bap_option( 'contact_title', 'Hãy để chúng tôi đồng hành cùng ngày trọng đại của bạn' ) ); ?></h2>
+				<<?php echo $bap_tag; // phpcs:ignore WordPress.Security.EscapeOutput ?> class="section-title"><?php echo esc_html( bap_option( 'contact_title', 'Hãy để chúng tôi đồng hành cùng ngày trọng đại của bạn' ) ); ?></<?php echo $bap_tag; // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 				<p class="lead"><?php echo esc_html( bap_option( 'contact_text', 'Liên hệ để nhận tư vấn ý tưởng và báo giá chi tiết — miễn phí.' ) ); ?></p>
 				<dl class="contact-details">
 					<?php if ( $bap_phone ) : ?>

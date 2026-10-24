@@ -14,7 +14,9 @@ $bap_primary = $bap_primary ? $bap_primary : "Lưu giữ khoảnh khắc\n*đẹ
 $bap_primary = nl2br( preg_replace( '/\*(.+?)\*/u', '<em>$1</em>', esc_html( $bap_primary ) ) );
 
 $bap_cta  = bap_option( 'banner_cta', array( 'url' => '#bo-suu-tap', 'title' => 'Xem thư viện ảnh' ) );
-$bap_cta2 = bap_option( 'banner_cta2', array( 'url' => '#lien-he', 'title' => 'Đặt lịch tư vấn' ) );
+$bap_cta2 = bap_option( 'banner_cta2', array( 'url' => bap_contact_url(), 'title' => 'Đặt lịch tư vấn' ) );
+$bap_cta['url']  = bap_resolve_contact_link( (string) ( $bap_cta['url'] ?? '' ) );
+$bap_cta2['url'] = bap_resolve_contact_link( (string) ( $bap_cta2['url'] ?? '' ) );
 ?>
 <section class="banner" id="top" data-banner>
 	<div class="banner-media" data-banner-media>

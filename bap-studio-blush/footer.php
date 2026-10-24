@@ -23,7 +23,7 @@ $bap_social  = bap_option( 'social', array() );
 				<?php bap_blush_kicker( bap_option( 'footer_tagline', 'Ảnh cưới · Sự kiện · Prom' ), 0, 'on-dark' ); ?>
 				<p class="footer-name"><?php echo esc_html( bap_studio_name() ); ?></p>
 			</div>
-			<a class="btn btn-pill" href="<?php echo esc_url( bap_blush_contact_url() ); ?>"><?php esc_html_e( 'Đặt lịch tư vấn', 'bap-studio-blush' ); ?> <?php echo bap_blush_arrow(); // phpcs:ignore ?></a>
+			<a class="btn btn-pill" href="<?php echo esc_url( bap_contact_url() ); ?>"><?php esc_html_e( 'Đặt lịch tư vấn', 'bap-studio-blush' ); ?> <?php echo bap_blush_arrow(); // phpcs:ignore ?></a>
 		</div>
 
 		<div class="footer-cols">

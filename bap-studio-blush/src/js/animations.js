@@ -68,7 +68,8 @@ function hero(desktop) {
 
   const media = root.querySelector('[data-banner-media]');
   const title = root.querySelector('[data-split]');
-  const card = root.querySelector('[data-hero-card]');
+  const cardStack = root.querySelector('[data-hero-cards]');
+  const cards = root.querySelectorAll('[data-hero-card]');
   const split = title ? SplitText.create(title, { type: 'lines', mask: 'lines', linesClass: 'line' }) : null;
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.1 });
@@ -78,11 +79,20 @@ function hero(desktop) {
   tl.from(root.querySelector('[data-banner-sub]'), { y: 20, autoAlpha: 0, duration: 0.8 }, '-=0.7')
     .from(root.querySelectorAll('[data-banner-buttons] > *'), { y: 16, autoAlpha: 0, duration: 0.6, stagger: 0.1 }, '-=0.5');
 
-  if (card) {
-    // Drops in from a steeper tilt and settles at -4deg, then drifts gently.
-    tl.from(card, { y: 80, rotation: -14, autoAlpha: 0, duration: 1.3, ease: 'back.out(1.4)' }, 0.9);
-    tl.to(card, { y: -10, rotation: -2.5, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-  }
+  // Each card drops in from a steeper tilt and settles at its CSS --tilt, then drifts gently,
+  // out of step with the others. Only --lift/--spin are animated, so the tilt stays responsive.
+  cards.forEach((card, i) => {
+    tl.from(card, { '--lift': '80px', '--spin': '-10deg', autoAlpha: 0, duration: 1.3, ease: 'back.out(1.4)' }, 0.9 + i * 0.15);
+    gsap.to(card, {
+      '--lift': '-10px',
+      '--spin': '1.5deg',
+      duration: 3.2 + i * 0.4,
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1,
+      delay: 2.3 + i * 0.6,
+    });
+  });
 
   // Parallax photo and fading text while scrolling past.
   gsap.to(media, {
@@ -96,7 +106,7 @@ function hero(desktop) {
     ease: 'none',
     scrollTrigger: { trigger: root, start: 'center top+=20%', end: 'bottom top', scrub: true },
   });
-  if (card && desktop) {
-    gsap.to(card, { yPercent: -60, ease: 'none', scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: true } });
+  if (cardStack && desktop) {
+    gsap.to(cardStack, { yPercent: -60, ease: 'none', scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: true } });
   }
 }

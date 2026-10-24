@@ -1,6 +1,6 @@
 <?php
 /**
- * Home page: hero, carousel, pinned albums, pricing, contact.
+ * Home page: hero, carousel, pinned albums, pricing. The contact form lives on the contact page.
  *
  * @package bap-studio-blush
  */
@@ -41,7 +41,5 @@ if ( bap_packages() ) :
 	</section>
 	<?php
 endif;
-
-get_template_part( 'template-parts/contact', null, array( 'num' => ++$bap_num ) );
 
 get_footer();

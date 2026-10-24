@@ -31,8 +31,9 @@ add_action(
 				'bap-main',
 				'BAP',
 				array(
-					'restUrl' => esc_url_raw( rest_url( 'bap/v1/' ) ),
-					'i18n'    => array(
+					'restUrl'    => esc_url_raw( rest_url( 'bap/v1/' ) ),
+					'contactUrl' => esc_url_raw( bap_contact_page_url() ),
+					'i18n'       => array(
 						'loading' => __( 'Đang tải…', 'bap-studio' ),
 						'pause'   => __( 'Tạm dừng', 'bap-studio' ),
 						'play'    => __( 'Tự chạy', 'bap-studio' ),
